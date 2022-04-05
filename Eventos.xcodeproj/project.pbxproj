@@ -14,6 +14,8 @@
 		2EF8CD8627FCE95B00960663 /* EventosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CD8527FCE95B00960663 /* EventosTests.swift */; };
 		2EF8CD9027FCE95B00960663 /* EventosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CD8F27FCE95B00960663 /* EventosUITests.swift */; };
 		2EF8CD9227FCE95B00960663 /* EventosUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CD9127FCE95B00960663 /* EventosUITestsLaunchTests.swift */; };
+		2EF8CDA827FCF01700960663 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDA727FCF01700960663 /* Event.swift */; };
+		2EF8CDAA27FCF08500960663 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDA927FCF08500960663 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +47,8 @@
 		2EF8CD8B27FCE95B00960663 /* EventosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EventosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF8CD8F27FCE95B00960663 /* EventosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventosUITests.swift; sourceTree = "<group>"; };
 		2EF8CD9127FCE95B00960663 /* EventosUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventosUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2EF8CDA727FCF01700960663 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		2EF8CDA927FCF08500960663 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,8 @@
 		2EF8CD9E27FCEE5000960663 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2EF8CDA727FCF01700960663 /* Event.swift */,
+				2EF8CDA927FCF08500960663 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -179,6 +185,7 @@
 				2EF8CD6727FCE95800960663 /* Sources */,
 				2EF8CD6827FCE95800960663 /* Frameworks */,
 				2EF8CD6927FCE95800960663 /* Resources */,
+				2EF8CDAC27FCF30E00960663 /* SwiftLint Stricpt */,
 			);
 			buildRules = (
 			);
@@ -294,12 +301,35 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2EF8CDAC27FCF30E00960663 /* SwiftLint Stricpt */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "SwiftLint Stricpt";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2EF8CD6727FCE95800960663 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EF8CDAA27FCF08500960663 /* User.swift in Sources */,
 				2EF8CD7327FCE95800960663 /* ViewController.swift in Sources */,
+				2EF8CDA827FCF01700960663 /* Event.swift in Sources */,
 				2EF8CD6F27FCE95800960663 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
