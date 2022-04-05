@@ -16,6 +16,8 @@
 		2EF8CDA827FCF01700960663 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDA727FCF01700960663 /* Event.swift */; };
 		2EF8CDAA27FCF08500960663 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDA927FCF08500960663 /* User.swift */; };
 		2EF8CDAE27FCF47100960663 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDAD27FCF47100960663 /* RemoteService.swift */; };
+		2EF8CDB027FCF98D00960663 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDAF27FCF98D00960663 /* Route.swift */; };
+		2EF8CDB227FD013200960663 /* ChekIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDB127FD013200960663 /* ChekIn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		2EF8CDA727FCF01700960663 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		2EF8CDA927FCF08500960663 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2EF8CDAD27FCF47100960663 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
+		2EF8CDAF27FCF98D00960663 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		2EF8CDB127FD013200960663 /* ChekIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChekIn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,7 @@
 			children = (
 				2EF8CDA727FCF01700960663 /* Event.swift */,
 				2EF8CDA927FCF08500960663 /* User.swift */,
+				2EF8CDB127FD013200960663 /* ChekIn.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -163,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				2EF8CDAD27FCF47100960663 /* RemoteService.swift */,
+				2EF8CDAF27FCF98D00960663 /* Route.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -329,7 +335,9 @@
 			files = (
 				2EF8CDAA27FCF08500960663 /* User.swift in Sources */,
 				2EF8CDAE27FCF47100960663 /* RemoteService.swift in Sources */,
+				2EF8CDB227FD013200960663 /* ChekIn.swift in Sources */,
 				2EF8CD7327FCE95800960663 /* ViewController.swift in Sources */,
+				2EF8CDB027FCF98D00960663 /* Route.swift in Sources */,
 				2EF8CDA827FCF01700960663 /* Event.swift in Sources */,
 				2EF8CD6F27FCE95800960663 /* AppDelegate.swift in Sources */,
 			);
