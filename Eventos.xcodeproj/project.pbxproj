@@ -11,11 +11,11 @@
 		2EF8CD7327FCE95800960663 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CD7227FCE95800960663 /* ViewController.swift */; };
 		2EF8CD7827FCE95B00960663 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8CD7727FCE95B00960663 /* Assets.xcassets */; };
 		2EF8CD7B27FCE95B00960663 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF8CD7927FCE95B00960663 /* LaunchScreen.storyboard */; };
-		2EF8CD8627FCE95B00960663 /* EventosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CD8527FCE95B00960663 /* EventosTests.swift */; };
 		2EF8CD9027FCE95B00960663 /* EventosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CD8F27FCE95B00960663 /* EventosUITests.swift */; };
 		2EF8CD9227FCE95B00960663 /* EventosUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CD9127FCE95B00960663 /* EventosUITestsLaunchTests.swift */; };
 		2EF8CDA827FCF01700960663 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDA727FCF01700960663 /* Event.swift */; };
 		2EF8CDAA27FCF08500960663 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDA927FCF08500960663 /* User.swift */; };
+		2EF8CDAE27FCF47100960663 /* RemoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDAD27FCF47100960663 /* RemoteService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,12 +43,12 @@
 		2EF8CD7A27FCE95B00960663 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2EF8CD7C27FCE95B00960663 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EF8CD8127FCE95B00960663 /* EventosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EventosTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EF8CD8527FCE95B00960663 /* EventosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventosTests.swift; sourceTree = "<group>"; };
 		2EF8CD8B27FCE95B00960663 /* EventosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EventosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF8CD8F27FCE95B00960663 /* EventosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventosUITests.swift; sourceTree = "<group>"; };
 		2EF8CD9127FCE95B00960663 /* EventosUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventosUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2EF8CDA727FCF01700960663 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		2EF8CDA927FCF08500960663 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2EF8CDAD27FCF47100960663 /* RemoteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,6 @@
 		2EF8CD8427FCE95B00960663 /* EventosTests */ = {
 			isa = PBXGroup;
 			children = (
-				2EF8CD8527FCE95B00960663 /* EventosTests.swift */,
 			);
 			path = EventosTests;
 			sourceTree = "<group>";
@@ -163,6 +162,7 @@
 		2EF8CDA427FCEF6C00960663 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				2EF8CDAD27FCF47100960663 /* RemoteService.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -328,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EF8CDAA27FCF08500960663 /* User.swift in Sources */,
+				2EF8CDAE27FCF47100960663 /* RemoteService.swift in Sources */,
 				2EF8CD7327FCE95800960663 /* ViewController.swift in Sources */,
 				2EF8CDA827FCF01700960663 /* Event.swift in Sources */,
 				2EF8CD6F27FCE95800960663 /* AppDelegate.swift in Sources */,
@@ -338,7 +339,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EF8CD8627FCE95B00960663 /* EventosTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
