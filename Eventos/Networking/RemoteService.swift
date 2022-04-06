@@ -33,27 +33,29 @@ class RemoteService: RemoteServicing {
         }
         request.timeoutInterval = 5
         session.dataTask(with: request) { data, response, error in
-            if let error = error {
-                handler(.failure(.unknown(error: error)))
-                return
-            }
-            guard let data = data else {
-                handler(.failure(.noData))
-                return
-            }
-            guard let response = response as? HTTPURLResponse else {
-                handler(.failure(.noURLResponse))
-                return
-            }
-            guard (200..<300).contains(response.statusCode) else {
-                handler(.failure(.badStatus(code: response.statusCode)))
-                return
-            }
-            do {
-                let decodedData = try JSONDecoder().decode(T.self, from: data)
-                handler(.success(decodedData))
-            } catch {
-                handler(.failure(.decodingError))
+            DispatchQueue.main.async {
+                if let error = error {
+                    handler(.failure(.unknown(error: error)))
+                    return
+                }
+                guard let data = data else {
+                    handler(.failure(.noData))
+                    return
+                }
+                guard let response = response as? HTTPURLResponse else {
+                    handler(.failure(.noURLResponse))
+                    return
+                }
+                guard (200..<300).contains(response.statusCode) else {
+                    handler(.failure(.badStatus(code: response.statusCode)))
+                    return
+                }
+                do {
+                    let decodedData = try JSONDecoder().decode(T.self, from: data)
+                    handler(.success(decodedData))
+                } catch {
+                    handler(.failure(.decodingError))
+                }
             }
         }
         .resume()
