@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E23D84627FE487900CBC86E /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E23D84527FE487900CBC86E /* Double+Extensions.swift */; };
 		2E31786927FE223200526471 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31786827FE223200526471 /* EventCell.swift */; };
 		2EF241D527FDA8830081BDD1 /* EventsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF241D427FDA8830081BDD1 /* EventsListViewModel.swift */; };
 		2EF241DE27FDB58D0081BDD1 /* EventsListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF241DD27FDB58D0081BDD1 /* EventsListViewModelTests.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2E23D84527FE487900CBC86E /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		2E31786827FE223200526471 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		2EF241D427FDA8830081BDD1 /* EventsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListViewModel.swift; sourceTree = "<group>"; };
 		2EF241DD27FDB58D0081BDD1 /* EventsListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventsListViewModelTests.swift; path = Eventos/UI/Scenes/EventsListViewModelTests.swift; sourceTree = SOURCE_ROOT; };
@@ -104,6 +106,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E23D84427FE486900CBC86E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2E23D84527FE487900CBC86E /* Double+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		2E31786527FE1DB500526471 /* EventsDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +178,7 @@
 		2EF8CD6D27FCE95800960663 /* Eventos */ = {
 			isa = PBXGroup;
 			children = (
+				2E23D84427FE486900CBC86E /* Extensions */,
 				2EF8CDA527FCEFA700960663 /* Main */,
 				2EF8CDA327FCEF0E00960663 /* SupportFiles */,
 				2EF8CDA427FCEF6C00960663 /* Networking */,
@@ -415,6 +426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E23D84627FE487900CBC86E /* Double+Extensions.swift in Sources */,
 				2EF8CDAA27FCF08500960663 /* User.swift in Sources */,
 				2EF8CDB627FD0F8000960663 /* NetworkError.swift in Sources */,
 				2EF8CDAE27FCF47100960663 /* RemoteService.swift in Sources */,

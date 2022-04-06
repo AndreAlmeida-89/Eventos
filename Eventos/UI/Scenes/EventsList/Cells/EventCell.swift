@@ -11,7 +11,7 @@ import UIKit
 class EventCell: UITableViewCell {
 
     static let reuseId = "EventCell"
-    static let rowHeight: CGFloat = 100
+    static let rowHeight: CGFloat = 150
 
     private lazy var peopleCountLabel: UILabel = {
         let label = UILabel(frame: .zero)
@@ -32,8 +32,9 @@ class EventCell: UITableViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.adjustsFontForContentSizeCategory = true
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = .zero
         label.text = "Título do Evento"
         return label
     }()
@@ -53,6 +54,7 @@ class EventCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.adjustsFontForContentSizeCategory = true
+        label.textAlignment = .right
         label.text = "R$ 50,00"
         return label
     }()
@@ -77,7 +79,6 @@ class EventCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setup()
         layout()
     }
 
@@ -87,10 +88,6 @@ class EventCell: UITableViewCell {
 }
 
 extension EventCell {
-    private func setup() {
-
-    }
-
     private func layout() {
         contentView.addSubview(peopleCountLabel)
         NSLayoutConstraint.activate([
@@ -109,7 +106,8 @@ extension EventCell {
         contentView.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalToSystemSpacingBelow: underlineView.bottomAnchor, multiplier: 2),
-            titleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2)
+            titleLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
+            titleLabel.widthAnchor.constraint(equalToConstant: 250)
         ])
 
         contentView.addSubview(stackLabel)
@@ -124,5 +122,13 @@ extension EventCell {
             chavronImageView.topAnchor.constraint(equalToSystemSpacingBelow: underlineView.bottomAnchor, multiplier: 0),
             trailingAnchor.constraint(equalToSystemSpacingAfter: chavronImageView.trailingAnchor, multiplier: 1)
         ])
+    }
+}
+
+extension EventCell {
+    func configure(with event: Event) {
+        peopleCountLabel.text = "Inscritos: \(event.people.count)"
+        titleLabel.text = event.title
+        priceAmmountLabel.text = event.price.currencyFormat
     }
 }

@@ -46,6 +46,11 @@ class EventsListViewController: UIViewController {
 }
 
 extension EventsListViewController {
+
+    private func style() {
+        view.backgroundColor = .systemBackground
+    }
+
     private func layout() {
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -61,15 +66,12 @@ extension EventsListViewController {
     private func bind() {
         viewModel.events
             .bind(to: self.tableView.rx.items(cellIdentifier: EventCell.reuseId,
-                                              cellType: EventCell.self)) { _, _, _ in
-               self.tableView.dequeueReusableCell(withIdentifier: EventCell.reuseId)
-            }
-            .disposed(by: disposeBag)
-    }
-}
+                                              cellType: EventCell.self)) { _, event, cell in
+                cell.configure(with: event)
+            }.disposed(by: disposeBag)
 
-extension EventsListViewController {
-    private func style() {
-        view.backgroundColor = .systemBackground
+        tableView.rx.modelSelected(Event.self).subscribe { event in
+            print(event.title)
+        }.disposed(by: disposeBag)
     }
 }
