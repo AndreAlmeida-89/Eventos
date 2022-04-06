@@ -102,6 +102,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E31786527FE1DB500526471 /* EventsDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EventsDetail;
+			sourceTree = "<group>";
+		};
 		2EF241D627FDA88F0081BDD1 /* EventsList */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +200,7 @@
 		2EF8CD9F27FCEE5900960663 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				2E31786527FE1DB500526471 /* EventsDetail */,
 				2EF241D627FDA88F0081BDD1 /* EventsList */,
 			);
 			path = Scenes;

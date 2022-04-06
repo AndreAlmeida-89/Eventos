@@ -11,27 +11,28 @@ import RxSwift
 protocol EventsListViewModelContract {
     func getEvents()
     var events: PublishSubject<[Event]> { get set }
+    var loadingIsHidden: PublishSubject<Bool> { get set }
+    var error: PublishSubject<NetworkError> { get set }
 }
 
 class EventsListViewModel: EventsListViewModelContract {
     private let getEventsService: GetEventsServicing
-    private var disposeBag = DisposeBag()
-
     var events: PublishSubject<[Event]> = PublishSubject()
-    let error: PublishSubject<NetworkError> = PublishSubject()
-    let loading: PublishSubject<Bool> = PublishSubject()
+    var error: PublishSubject<NetworkError> = PublishSubject()
+    var loadingIsHidden: PublishSubject<Bool> = PublishSubject()
 
     init(eventsService: GetEventsServicing) {
         self.getEventsService = eventsService
     }
 
     func getEvents() {
-        loading.onNext(true)
+        loadingIsHidden.onNext(false)
         getEventsService.getEvents { (result: Response<[Event]>) in
-            self.loading.onNext(false)
+            self.loadingIsHidden.onNext(true)
             switch result {
             case .success(let events):
-                self.events.onNext(events)
+                    self.events.onNext(events)
+
             case .failure(let error):
                 self.error.onNext(error)
             }
