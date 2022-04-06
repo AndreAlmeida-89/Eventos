@@ -14,7 +14,7 @@ enum NetworkError: LocalizedError {
     case noURLResponse
     case badStatus(code: Int)
     case decodingError
-    
+
     var errorDescription: String? {
         switch self {
         case .badURL:

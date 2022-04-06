@@ -15,9 +15,11 @@ protocol RemoteServicing {
 
 class RemoteService: RemoteServicing {
     let session: URLSession
+
     init(session: URLSession = .shared) {
         self.session = session
     }
+
     func makeRequest<T: Decodable>(to route: Route, handler: @escaping Completion<T>) {
         guard let url = route.url else {
             handler(.failure(.badURL))
