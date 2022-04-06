@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E31786927FE223200526471 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31786827FE223200526471 /* EventCell.swift */; };
 		2EF241D527FDA8830081BDD1 /* EventsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF241D427FDA8830081BDD1 /* EventsListViewModel.swift */; };
 		2EF241DE27FDB58D0081BDD1 /* EventsListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF241DD27FDB58D0081BDD1 /* EventsListViewModelTests.swift */; };
 		2EF241E227FDBFF70081BDD1 /* MockedEventsList.json in Sources */ = {isa = PBXBuildFile; fileRef = 2EF241E127FDBFF70081BDD1 /* MockedEventsList.json */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2E31786827FE223200526471 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		2EF241D427FDA8830081BDD1 /* EventsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListViewModel.swift; sourceTree = "<group>"; };
 		2EF241DD27FDB58D0081BDD1 /* EventsListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EventsListViewModelTests.swift; path = Eventos/UI/Scenes/EventsListViewModelTests.swift; sourceTree = SOURCE_ROOT; };
 		2EF241E127FDBFF70081BDD1 /* MockedEventsList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockedEventsList.json; sourceTree = "<group>"; };
@@ -109,9 +111,18 @@
 			path = EventsDetail;
 			sourceTree = "<group>";
 		};
+		2E31786627FE220C00526471 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				2E31786827FE223200526471 /* EventCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		2EF241D627FDA88F0081BDD1 /* EventsList */ = {
 			isa = PBXGroup;
 			children = (
+				2E31786627FE220C00526471 /* Cells */,
 				2EF8CD7227FCE95800960663 /* EventsListViewController.swift */,
 				2EF241D427FDA8830081BDD1 /* EventsListViewModel.swift */,
 			);
@@ -410,6 +421,7 @@
 				2EF8CDB227FD013200960663 /* ChekIn.swift in Sources */,
 				2EF8CDBD27FD169E00960663 /* EventsService.swift in Sources */,
 				2EF8CD7327FCE95800960663 /* EventsListViewController.swift in Sources */,
+				2E31786927FE223200526471 /* EventCell.swift in Sources */,
 				2EF8CDB027FCF98D00960663 /* Route.swift in Sources */,
 				2EF8CDA827FCF01700960663 /* Event.swift in Sources */,
 				2EF8CD6F27FCE95800960663 /* AppDelegate.swift in Sources */,

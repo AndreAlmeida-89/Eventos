@@ -29,7 +29,8 @@ class EventsListViewController: UIViewController {
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        tableView.register(EventCell.self, forCellReuseIdentifier: EventCell.reuseId)
+        tableView.rowHeight = EventCell.rowHeight
         return tableView
     }()
 
@@ -43,15 +44,6 @@ class EventsListViewController: UIViewController {
         viewModel.getEvents()
     }
 }
-extension EventsListViewController {
-    private func bind() {
-        viewModel.events
-            .bind(to: self.tableView.rx.items(cellIdentifier: cellIdentifier)) { _, event, cell in
-                cell.textLabel?.text = event.title
-            }
-            .disposed(by: disposeBag)
-    }
-}
 
 extension EventsListViewController {
     private func layout() {
@@ -62,6 +54,17 @@ extension EventsListViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+    }
+}
+
+extension EventsListViewController {
+    private func bind() {
+        viewModel.events
+            .bind(to: self.tableView.rx.items(cellIdentifier: EventCell.reuseId,
+                                              cellType: EventCell.self)) { _, _, _ in
+               self.tableView.dequeueReusableCell(withIdentifier: EventCell.reuseId)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
