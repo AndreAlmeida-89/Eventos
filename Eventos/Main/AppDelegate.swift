@@ -13,10 +13,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let rootViewController = EventsListViewController()
-        let navigagtionController = UINavigationController(rootViewController: rootViewController)
+        let navigationController = UINavigationController(rootViewController: rootViewController)
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navigagtionController
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
+        navigationController.navigationBar.barStyle = .black
+        navigationController.navigationBar.isTranslucent = false
+        navigationController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         return true
     }
 }

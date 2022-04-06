@@ -16,9 +16,9 @@ class EventsListViewController: UIViewController {
     private let cellIdentifier = "cell"
 
     override init(nibName nibNameOrNil: String? = nil, bundle nibBundleOrNil: Bundle? = nil) {
-        let remoteService = RemoteService()
-        let service = EventsService(service: remoteService)
-        viewModel = EventsListViewModel(eventsService: service)
+//        let remoteService = RemoteService()
+//        let service = EventsService(service: remoteService)
+        viewModel = EventsListViewModel(eventsService: MockedGetEventsService())
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -49,6 +49,7 @@ extension EventsListViewController {
 
     private func style() {
         view.backgroundColor = .systemBackground
+        title = "Lista de Eventos"
     }
 
     private func layout() {
@@ -70,8 +71,9 @@ extension EventsListViewController {
                 cell.configure(with: event)
             }.disposed(by: disposeBag)
 
-        tableView.rx.modelSelected(Event.self).subscribe { event in
-            print(event.title)
+        tableView.rx.modelSelected(Event.self).subscribe { _ in
+            let detailViewController = EventDetailViewController()
+            self.navigationController?.pushViewController(detailViewController, animated: true)
         }.disposed(by: disposeBag)
     }
 }

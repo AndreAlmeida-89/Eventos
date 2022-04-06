@@ -6,11 +6,14 @@
 //
 
 import Foundation
-@testable import Eventos
 
 class JsonLoader {
-    static var MockedEventsList: [Event] {
-        loadJson(filename: "MockedEventsList") ?? []
+    static var mockedEventsList: [Event] {
+        loadJson(filename: "MockedEvents")!
+    }
+
+    static var mockedEvent: Event {
+        loadJson(filename: "MockedEvent")!
     }
 
     static func loadJson<T: Decodable>(filename: String) -> T? {
