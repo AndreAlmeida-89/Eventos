@@ -7,6 +7,7 @@
 
 import Foundation
 
+typealias Response<T> = Result<T, NetworkError>
 typealias Completion<T: Decodable> = (Result<T, NetworkError>) -> Void
 
 protocol RemoteServicing {

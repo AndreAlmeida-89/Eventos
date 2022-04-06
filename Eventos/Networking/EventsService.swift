@@ -7,13 +7,21 @@
 
 import Foundation
 
-protocol EventsServicing {
+protocol EventsServicing: GetEventsServicing, PostCheckInServicing, GetEventServicing {}
+
+protocol GetEventsServicing {
     func getEvents(handler: @escaping Completion<[Event]>)
+}
+
+protocol PostCheckInServicing {
     func postCheckIn(_ checkin: ChekIn, handler: @escaping Completion<ChekInResponse>)
+}
+
+protocol GetEventServicing {
     func getEvent(by id: Int, handler: @escaping Completion<Event>)
 }
 
-final class EventsService: EventsServicing {
+class EventsService: EventsServicing {
     let service: RemoteServicing
 
     init(service: RemoteServicing) {
