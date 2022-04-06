@@ -7,16 +7,7 @@
 
 import Foundation
 
-enum CustomError: LocalizedError {
-    case badURL
-    case unknown(error: Error)
-    case noData
-    case noURLResponse
-    case badStatus(code: Int)
-    case decodingError
-}
-
-typealias Completion<T: Decodable> = (Result<T, CustomError>) -> Void
+typealias Completion<T: Decodable> = (Result<T, NetworkError>) -> Void
 
 protocol RemoteServicing {
     func makeRequest<T: Decodable>(to route: Route, handler: @escaping Completion<T>)
