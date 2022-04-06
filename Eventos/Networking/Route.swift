@@ -9,6 +9,7 @@ import Foundation
 
 enum Route {
     case getEvents
+    case getEvent(id: Int)
     case postCheckIn(body: ChekIn)
 }
 
@@ -18,13 +19,15 @@ extension Route {
         switch self {
         case .getEvents:
             return URL(string: Route.baseURL + "/events")
-        case .postCheckIn(let body):
-            return URL(string: Route.baseURL + "/events/" + String(body.eventId))
+        case .getEvent(id: let id):
+            return URL(string: Route.baseURL + "/events/" + String(id))
+        case .postCheckIn:
+            return URL(string: Route.baseURL + "/checkin")
         }
     }
     var method: String {
         switch self {
-        case .getEvents:
+        case .getEvents, .getEvent:
             return "GET"
         case .postCheckIn:
             return "POST"
