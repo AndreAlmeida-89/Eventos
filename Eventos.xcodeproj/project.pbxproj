@@ -20,6 +20,8 @@
 		2EF8CDB227FD013200960663 /* ChekIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDB127FD013200960663 /* ChekIn.swift */; };
 		2EF8CDB427FD06A300960663 /* RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDB327FD06A300960663 /* RouteTests.swift */; };
 		2EF8CDB627FD0F8000960663 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDB527FD0F8000960663 /* NetworkError.swift */; };
+		2EF8CDBB27FD143400960663 /* RemoteServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDBA27FD143400960663 /* RemoteServiceTests.swift */; };
+		2EF8CDBD27FD169E00960663 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF8CDBC27FD169E00960663 /* EventsService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		2EF8CDB127FD013200960663 /* ChekIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChekIn.swift; sourceTree = "<group>"; };
 		2EF8CDB327FD06A300960663 /* RouteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RouteTests.swift; path = Eventos/Models/RouteTests.swift; sourceTree = SOURCE_ROOT; };
 		2EF8CDB527FD0F8000960663 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		2EF8CDBA27FD143400960663 /* RemoteServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RemoteServiceTests.swift; path = Eventos/Networking/RemoteServiceTests.swift; sourceTree = SOURCE_ROOT; };
+		2EF8CDBC27FD169E00960663 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				2EF8CDB327FD06A300960663 /* RouteTests.swift */,
+				2EF8CDBA27FD143400960663 /* RemoteServiceTests.swift */,
 			);
 			path = EventosTests;
 			sourceTree = "<group>";
@@ -172,9 +177,10 @@
 		2EF8CDA427FCEF6C00960663 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				2EF8CDAF27FCF98D00960663 /* Route.swift */,
+				2EF8CDBC27FD169E00960663 /* EventsService.swift */,
 				2EF8CDAD27FCF47100960663 /* RemoteService.swift */,
 				2EF8CDB527FD0F8000960663 /* NetworkError.swift */,
-				2EF8CDAF27FCF98D00960663 /* Route.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -344,6 +350,7 @@
 				2EF8CDB627FD0F8000960663 /* NetworkError.swift in Sources */,
 				2EF8CDAE27FCF47100960663 /* RemoteService.swift in Sources */,
 				2EF8CDB227FD013200960663 /* ChekIn.swift in Sources */,
+				2EF8CDBD27FD169E00960663 /* EventsService.swift in Sources */,
 				2EF8CD7327FCE95800960663 /* ViewController.swift in Sources */,
 				2EF8CDB027FCF98D00960663 /* Route.swift in Sources */,
 				2EF8CDA827FCF01700960663 /* Event.swift in Sources */,
@@ -356,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EF8CDB427FD06A300960663 /* RouteTests.swift in Sources */,
+				2EF8CDBB27FD143400960663 /* RemoteServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

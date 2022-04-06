@@ -7,10 +7,14 @@
 
 import Foundation
 
-struct ChekIn: Codable {
+struct ChekIn: Encodable {
     let eventId: Int
     let name: String
     let email: String
+}
+
+struct ChekInResponse: Decodable {
+    let code: Int
 }
 
 extension ChekIn: Equatable {

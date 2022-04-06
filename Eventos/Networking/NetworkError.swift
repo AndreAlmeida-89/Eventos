@@ -28,7 +28,7 @@ enum NetworkError: LocalizedError {
         case .badStatus(let code):
             switch code {
             case 100..<200:
-                return "Erro informal"
+                return "Erro lentidão ao tentar acessar o servidor."
             case 400..<500:
                 return "Erro ao tentar conectar ao servidor. Verifique sua conexão."
             case 500..<600:

@@ -28,6 +28,7 @@ class RemoteService: RemoteServicing {
         if let requestBody = route.requestBody {
             request.httpBody = requestBody
         }
+        request.timeoutInterval = 5
         session.dataTask(with: request) { data, response, error in
             if let error = error {
                 handler(.failure(.unknown(error: error)))
