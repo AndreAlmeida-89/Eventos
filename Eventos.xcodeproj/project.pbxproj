@@ -13,6 +13,9 @@
 		2E23D84B27FE54A700CBC86E /* JsonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF241E427FDC0C90081BDD1 /* JsonLoader.swift */; };
 		2E23D84E27FE56E400CBC86E /* MockedEvents.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E23D84D27FE56E400CBC86E /* MockedEvents.json */; };
 		2E23D85027FE57AE00CBC86E /* MockedEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E23D84F27FE57AE00CBC86E /* MockedEvent.json */; };
+		2E23D85227FE59FE00CBC86E /* EventDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E23D85127FE59FE00CBC86E /* EventDetailViewModel.swift */; };
+		2E23D85527FE767A00CBC86E /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 2E23D85427FE767A00CBC86E /* Kingfisher */; };
+		2E2C0A4D27FF572F002BEEC4 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2C0A4C27FF572F002BEEC4 /* Date+Extensions.swift */; };
 		2E31786927FE223200526471 /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E31786827FE223200526471 /* EventCell.swift */; };
 		2EF241D527FDA8830081BDD1 /* EventsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF241D427FDA8830081BDD1 /* EventsListViewModel.swift */; };
 		2EF241F427FDCDCF0081BDD1 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF241F327FDCDCF0081BDD1 /* RxCocoa */; };
@@ -57,6 +60,8 @@
 		2E23D84927FE53E700CBC86E /* MockedGetEventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockedGetEventsService.swift; sourceTree = "<group>"; };
 		2E23D84D27FE56E400CBC86E /* MockedEvents.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockedEvents.json; sourceTree = "<group>"; };
 		2E23D84F27FE57AE00CBC86E /* MockedEvent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockedEvent.json; sourceTree = "<group>"; };
+		2E23D85127FE59FE00CBC86E /* EventDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModel.swift; sourceTree = "<group>"; };
+		2E2C0A4C27FF572F002BEEC4 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		2E31786827FE223200526471 /* EventCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCell.swift; sourceTree = "<group>"; };
 		2EF241D427FDA8830081BDD1 /* EventsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListViewModel.swift; sourceTree = "<group>"; };
 		2EF241E427FDC0C90081BDD1 /* JsonLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonLoader.swift; sourceTree = "<group>"; };
@@ -85,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E23D85527FE767A00CBC86E /* Kingfisher in Frameworks */,
 				2EF241F827FDCDCF0081BDD1 /* RxSwift in Frameworks */,
 				2EF241F627FDCDCF0081BDD1 /* RxRelay in Frameworks */,
 				2EF241F427FDCDCF0081BDD1 /* RxCocoa in Frameworks */,
@@ -112,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				2E23D84527FE487900CBC86E /* Double+Extensions.swift */,
+				2E2C0A4C27FF572F002BEEC4 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -120,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				2E23D84727FE4FE300CBC86E /* EventDetailViewController.swift */,
+				2E23D85127FE59FE00CBC86E /* EventDetailViewModel.swift */,
 			);
 			path = EventsDetail;
 			sourceTree = "<group>";
@@ -289,6 +297,7 @@
 				2EF241F327FDCDCF0081BDD1 /* RxCocoa */,
 				2EF241F527FDCDCF0081BDD1 /* RxRelay */,
 				2EF241F727FDCDCF0081BDD1 /* RxSwift */,
+				2E23D85427FE767A00CBC86E /* Kingfisher */,
 			);
 			productName = Eventos;
 			productReference = 2EF8CD6B27FCE95800960663 /* Eventos.app */;
@@ -365,6 +374,7 @@
 			mainGroup = 2EF8CD6227FCE95800960663;
 			packageReferences = (
 				2EF241F227FDCDCF0081BDD1 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				2E23D85327FE767A00CBC86E /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 2EF8CD6C27FCE95800960663 /* Products */;
 			projectDirPath = "";
@@ -439,6 +449,7 @@
 				2E23D84827FE4FE300CBC86E /* EventDetailViewController.swift in Sources */,
 				2EF8CDAE27FCF47100960663 /* RemoteService.swift in Sources */,
 				2EF8CDB227FD013200960663 /* ChekIn.swift in Sources */,
+				2E2C0A4D27FF572F002BEEC4 /* Date+Extensions.swift in Sources */,
 				2EF8CDBD27FD169E00960663 /* EventsService.swift in Sources */,
 				2EF8CD7327FCE95800960663 /* EventsListViewController.swift in Sources */,
 				2E31786927FE223200526471 /* EventCell.swift in Sources */,
@@ -446,6 +457,7 @@
 				2EF8CDA827FCF01700960663 /* Event.swift in Sources */,
 				2EF8CD6F27FCE95800960663 /* AppDelegate.swift in Sources */,
 				2EF241D527FDA8830081BDD1 /* EventsListViewModel.swift in Sources */,
+				2E23D85227FE59FE00CBC86E /* EventDetailViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,6 +804,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2E23D85327FE767A00CBC86E /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		2EF241F227FDCDCF0081BDD1 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -803,6 +823,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2E23D85427FE767A00CBC86E /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2E23D85327FE767A00CBC86E /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
 		2EF241F327FDCDCF0081BDD1 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2EF241F227FDCDCF0081BDD1 /* XCRemoteSwiftPackageReference "RxSwift" */;

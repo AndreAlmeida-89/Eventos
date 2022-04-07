@@ -9,7 +9,7 @@ import Foundation
 
 struct Event: Decodable {
     let people: [User]
-    let date: Int
+    let date: Int64
     let description: String
     let image: String
     let longitude: Double
@@ -17,4 +17,10 @@ struct Event: Decodable {
     let price: Double
     let title: String
     let id: String
+}
+
+extension Event {
+    var convertedDate: Date {
+        Date(milliseconds: date)
+    }
 }

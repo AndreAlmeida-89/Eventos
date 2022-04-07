@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationController.navigationBar.barStyle = .black
         navigationController.navigationBar.isTranslucent = false
         navigationController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController.navigationBar.prefersLargeTitles = true
         return true
     }
 }

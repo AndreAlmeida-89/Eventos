@@ -39,6 +39,16 @@ class EventCell: UITableViewCell {
         return label
     }()
 
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.preferredFont(forTextStyle: .caption1)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = .zero
+        label.text = "00/00/0000"
+        return label
+    }()
+
     private lazy var priceLabel: UILabel = {
         let label = UILabel(frame: .zero)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -110,6 +120,13 @@ extension EventCell {
             titleLabel.widthAnchor.constraint(equalToConstant: 250)
         ])
 
+        contentView.addSubview(dateLabel)
+        NSLayoutConstraint.activate([
+            dateLabel.topAnchor.constraint(equalToSystemSpacingBelow: titleLabel.bottomAnchor, multiplier: 1),
+            dateLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: leadingAnchor, multiplier: 2),
+            dateLabel.widthAnchor.constraint(equalToConstant: 250)
+        ])
+
         contentView.addSubview(stackLabel)
         NSLayoutConstraint.activate([
             stackLabel.topAnchor.constraint(equalToSystemSpacingBelow: underlineView.bottomAnchor, multiplier: 0),
@@ -130,5 +147,6 @@ extension EventCell {
         peopleCountLabel.text = "Inscritos: \(event.people.count)"
         titleLabel.text = event.title
         priceAmmountLabel.text = event.price.currencyFormat
+        dateLabel.text = event.convertedDate.formatted(date: .numeric, time: .shortened)
     }
 }
