@@ -26,5 +26,4 @@ extension UIViewController {
         loadingView?.removeFromSuperview()
         loadingView = nil
     }
-
 }

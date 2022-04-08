@@ -144,13 +144,20 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		2EDDBBB52800D2740020D9CA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2EDDBBB32800C8B20020D9CA /* LoadingView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		2EF241D627FDA88F0081BDD1 /* EventsList */ = {
 			isa = PBXGroup;
 			children = (
 				2E31786627FE220C00526471 /* Cell */,
 				2EF8CD7227FCE95800960663 /* EventsListViewController.swift */,
 				2EF241D427FDA8830081BDD1 /* EventsListViewModel.swift */,
-				2EDDBBB32800C8B20020D9CA /* LoadingView.swift */,
 			);
 			path = EventsList;
 			sourceTree = "<group>";
@@ -248,6 +255,7 @@
 		2EF8CDA127FCEEC100960663 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				2EDDBBB52800D2740020D9CA /* Common */,
 				2EF8CD9F27FCEE5900960663 /* Scenes */,
 			);
 			path = UI;

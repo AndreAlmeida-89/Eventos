@@ -14,7 +14,7 @@ struct ChekIn: Encodable {
 }
 
 struct ChekInResponse: Decodable {
-    let code: Int
+    let code: String
 }
 
 extension ChekIn: Equatable {

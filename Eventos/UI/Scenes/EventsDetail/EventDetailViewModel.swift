@@ -14,12 +14,12 @@ protocol EventDetailViewModelContract {
     var event: PublishSubject<Event> { get set }
     var loadingIsHidden: PublishSubject<Bool> { get set }
     var error: PublishSubject<LocalizedError> { get set }
+    var onCompleteCheckin: PublishSubject<Bool> { get set }
 }
 
 enum CheckinError: LocalizedError {
     case invalidEmail
     case invalidName
-
     var errorDescription: String? {
         switch self {
         case .invalidEmail:
@@ -68,9 +68,10 @@ class EventDetailViewModel: EventDetailViewModelContract {
             self.error.onNext(CheckinError.invalidEmail)
             return
         }
-
+        loadingIsHidden.onNext(false)
         let checkin = ChekIn(eventId: eventId, name: name, email: email)
         postCheckInServicing.postCheckIn(checkin) { result in
+            self.loadingIsHidden.onNext(true)
             switch result {
             case .success:
                 self.onCompleteCheckin.onNext(true)
@@ -82,7 +83,7 @@ class EventDetailViewModel: EventDetailViewModelContract {
     }
 
     private func validateName(_ name: String) -> Bool {
-        TextInputValidator.isValidEmail(name)
+        TextInputValidator.isValidName(name)
     }
 
     private func validateEmail(_ email: String) -> Bool {

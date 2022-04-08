@@ -201,6 +201,14 @@ extension EventDetailViewController {
         }
         .disposed(by: disposeBag)
 
+        viewModel.onCompleteCheckin.bind { _ in
+            let alert = UIAlertController(title: "Parabéns!!",
+                                          message: "Sua inscrição foi realizada com sucesso!",
+                                          preferredStyle: .alert)
+            alert.addAction(.init(title: "Ok", style: .default))
+            self.present(alert, animated: true)
+        }.disposed(by: disposeBag)
+
     }
 }
 
