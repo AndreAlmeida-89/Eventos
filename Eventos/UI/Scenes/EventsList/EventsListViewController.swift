@@ -75,5 +75,10 @@ extension EventsListViewController {
             let detailViewController = EventDetailViewController()
             self.navigationController?.pushViewController(detailViewController, animated: true)
         }.disposed(by: disposeBag)
+
+        viewModel.loadingIsHidden
+            .bind { $0 ? self.removeSpinner() : self.showLoading()}
+            .disposed(by: disposeBag)
     }
+
 }

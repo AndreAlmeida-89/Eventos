@@ -18,7 +18,8 @@ class MockedGetEventsService: GetEventsServicing {
 class MockedGetEventService: GetEventServicing {
     func getEvent(by id: Int, handler: @escaping Completion<Event>) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            handler(.success(JsonLoader.mockedEvent))
+             handler(.success(JsonLoader.mockedEvent))
+//            handler(.failure(.noURLResponse))
         }
     }
 }

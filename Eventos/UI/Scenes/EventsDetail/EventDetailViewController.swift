@@ -15,13 +15,12 @@ class EventDetailViewController: UIViewController {
     var viewModel: EventDetailViewModelContract
     private let disposeBag = DisposeBag()
     private let stackMargins: CGFloat = 20
+    private let taxtViewkMargins: CGFloat = 16
 
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 10
-        imageView.kf.indicatorType = .activity
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -29,28 +28,40 @@ class EventDetailViewController: UIViewController {
     private lazy var text: UITextView = {
         let textView = UITextView(frame: .zero)
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.backgroundColor = .secondarySystemBackground
+        textView.contentInset = UIEdgeInsets(top: taxtViewkMargins,
+                                             left: taxtViewkMargins,
+                                             bottom: taxtViewkMargins,
+                                             right: taxtViewkMargins)
+        textView.layer.cornerRadius = 10
+        textView.isEditable = false
         textView.font = .preferredFont(forTextStyle: .body)
         return textView
     }()
 
     private lazy var button: UIButton = {
-        let button = UIButton(frame: .zero)
+        let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Faça o Check-in", for: .normal)
         button.backgroundColor = .systemPink
         button.layer.cornerRadius = 10
         button.layer.shadowColor = UIColor.systemPink.cgColor
+        button.addTarget(self, action: #selector(chekIn), for: .touchUpInside)
+        button.setImage(UIImage(systemName: "checkmark")?.withTintColor(.systemMint,
+                                                                  renderingMode: .alwaysOriginal),
+                        for: [])
+        button.setTitleColor(.white, for: [])
         return button
     }()
 
     private lazy var showMapButton: UIButton = {
-        let button = UIButton(frame: .zero)
+        let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Veja no mapa!", for: .normal)
         button.backgroundColor = .systemMint
         button.layer.cornerRadius = 10
         button.setImage(UIImage(systemName: "map")?.withTintColor(.systemPink,
-                                                                            renderingMode: .alwaysOriginal),
+                                                                  renderingMode: .alwaysOriginal),
                         for: [])
         button.setTitleColor(.black, for: [])
         return button
@@ -112,8 +123,8 @@ class EventDetailViewController: UIViewController {
                                                                  leading: stackMargins,
                                                                  bottom: stackMargins,
                                                                  trailing: stackMargins)
-        stack.addArrangedSubview(imageView)
         stack.addArrangedSubview(infoStack)
+        stack.addArrangedSubview(imageView)
         stack.addArrangedSubview(text)
         stack.addArrangedSubview(button)
         stack.addArrangedSubview(showMapButton)
@@ -122,7 +133,8 @@ class EventDetailViewController: UIViewController {
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         let service = MockedGetEventService()
-        viewModel = EventDetailViewModel(eventService: service)
+        let postService = EventsService(service: RemoteService())
+        viewModel = EventDetailViewModel(eventService: service, postCheckInServicing: postService, eventId: 1)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -131,7 +143,7 @@ class EventDetailViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.getEvent(by: 1)
+        viewModel.getEvent()
     }
 
     override func viewDidLoad() {
@@ -141,32 +153,54 @@ class EventDetailViewController: UIViewController {
         bind()
     }
 
-    @objc func share(sender: UIView) {
-        guard
-            let title = titleLabel.text,
-            let image = imageView.image,
-            let text = text.text
-        else { return }
-        let activityViewController = UIActivityViewController(activityItems: [title, image, text],
-                                          applicationActivities: nil)
-        present(activityViewController, animated: true)
-    }
 }
 
 extension EventDetailViewController {
     private func bind() {
-        viewModel.event.bind { event in
 
-            self.imageView.kf.setImage(with: URL(string: event.image)!,
-                                       placeholder: UIImage(systemName: "xmark"),
-                                       options: [.transition(.fade(1)),
-                                                 .cacheOriginalImage])
+        viewModel.loadingIsHidden
+            .bind { $0 ? self.removeSpinner() : self.showLoading()}
+            .disposed(by: disposeBag)
+
+        viewModel.event.bind { event in
+            let processor = RoundCornerImageProcessor(cornerRadius: 50)
+            self.imageView.kf.indicatorType = .activity
+            if let url = URL(string: event.image) {
+                self.imageView.kf.setImage(with: url,
+                                           options: [.processor(processor)])
+            } else {
+                self.imageView.image = UIImage(systemName: "photo")
+            }
             self.text.text = event.description
             self.titleLabel.text = event.title
             self.priceAmmountLabel.text = event.price.currencyFormat
             self.dateLabel.text = event.convertedDate.formatted(date: .numeric, time: .shortened)
         }
         .disposed(by: disposeBag)
+
+        viewModel.error.bind { error in
+            let alert = UIAlertController(title: "Ops!",
+                                          message: error.errorDescription,
+                                          preferredStyle: .actionSheet)
+            if error is NetworkError {
+                alert.addAction(.init(title: "Voltar", style: .default, handler: { _ in
+                    self.navigationController?.popViewController(animated: true)
+                }))
+                alert.addAction(.init(title: "Tentar novamente", style: .default, handler: { _ in
+                    self.viewModel.getEvent()
+                }))
+            }
+
+            if error is CheckinError {
+                alert.addAction(.init(title: "Cancelar", style: .cancel))
+                alert.addAction(.init(title: "Tentar novamente", style: .default, handler: { _ in
+                    self.chekIn()
+                }))
+            }
+            self.present(alert, animated: true)
+        }
+        .disposed(by: disposeBag)
+
     }
 }
 
@@ -174,6 +208,7 @@ extension EventDetailViewController {
     private func style() {
         self.title = "Detalhes"
         view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
 }
 
@@ -189,9 +224,55 @@ extension EventDetailViewController {
         ])
 
         NSLayoutConstraint.activate([
-            text.heightAnchor.constraint(equalToConstant: 300),
+            imageView.widthAnchor.constraint(equalToConstant: 200),
+            imageView.heightAnchor.constraint(equalToConstant: 200),
             button.heightAnchor.constraint(equalToConstant: 44),
             showMapButton.heightAnchor.constraint(equalToConstant: 44)
         ])
+    }
+}
+
+extension EventDetailViewController {
+    @objc
+    func share(sender: UIView) {
+        guard
+            let title = titleLabel.text,
+            let image = imageView.image,
+            let text = text.text
+        else { return }
+        let activityViewController = UIActivityViewController(activityItems: [title, image, text],
+                                                              applicationActivities: nil)
+        present(activityViewController, animated: true)
+    }
+
+    @objc
+    func chekIn() {
+        let checkinAlert = UIAlertController(title: "Faça o Check-In",
+                                             message: "Preencha os campos abaixo.",
+                                             preferredStyle: .alert)
+        checkinAlert.addTextField { field in
+            field.placeholder = "Nome"
+            field.returnKeyType = .next
+        }
+
+        checkinAlert.addTextField { field in
+            field.placeholder = "E-mail"
+            field.returnKeyType = .done
+            field.keyboardType = .emailAddress
+        }
+
+        checkinAlert.addAction(UIAlertAction(title: "Cencelar", style: .cancel))
+
+        let confirmAction = UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
+            guard
+                let name = checkinAlert.textFields?[0].text,
+                let email = checkinAlert.textFields?[1].text
+            else { return }
+            self.viewModel.postCheckin(name: name, email: email)
+        })
+
+        checkinAlert.addAction(confirmAction)
+
+        present(checkinAlert, animated: true)
     }
 }
