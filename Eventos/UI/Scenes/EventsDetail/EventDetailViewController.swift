@@ -43,12 +43,15 @@ class EventDetailViewController: UIViewController {
         return button
     }()
 
-    private lazy var shereButton: UIButton = {
+    private lazy var showMapButton: UIButton = {
         let button = UIButton(frame: .zero)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Veja no mapa!", for: .normal)
         button.backgroundColor = .systemMint
         button.layer.cornerRadius = 10
+        button.setImage(UIImage(systemName: "map")?.withTintColor(.systemPink,
+                                                                            renderingMode: .alwaysOriginal),
+                        for: [])
         button.setTitleColor(.black, for: [])
         return button
     }()
@@ -92,6 +95,13 @@ class EventDetailViewController: UIViewController {
         return stack
     }()
 
+    private lazy var shareButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .action,
+                                     target: self,
+                                     action: #selector(share(sender:)))
+        return button
+    }()
+
     private lazy var mainStack: UIStackView = {
         let stack = UIStackView(frame: .zero)
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -106,7 +116,7 @@ class EventDetailViewController: UIViewController {
         stack.addArrangedSubview(infoStack)
         stack.addArrangedSubview(text)
         stack.addArrangedSubview(button)
-        stack.addArrangedSubview(shereButton)
+        stack.addArrangedSubview(showMapButton)
         return stack
     }()
 
@@ -126,10 +136,20 @@ class EventDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Detalhes"
-        view.backgroundColor = .systemBackground
+        style()
         layout()
         bind()
+    }
+
+    @objc func share(sender: UIView) {
+        guard
+            let title = titleLabel.text,
+            let image = imageView.image,
+            let text = text.text
+        else { return }
+        let activityViewController = UIActivityViewController(activityItems: [title, image, text],
+                                          applicationActivities: nil)
+        present(activityViewController, animated: true)
     }
 }
 
@@ -141,7 +161,6 @@ extension EventDetailViewController {
                                        placeholder: UIImage(systemName: "xmark"),
                                        options: [.transition(.fade(1)),
                                                  .cacheOriginalImage])
-
             self.text.text = event.description
             self.titleLabel.text = event.title
             self.priceAmmountLabel.text = event.price.currencyFormat
@@ -152,7 +171,15 @@ extension EventDetailViewController {
 }
 
 extension EventDetailViewController {
+    private func style() {
+        self.title = "Detalhes"
+        view.backgroundColor = .systemBackground
+    }
+}
+
+extension EventDetailViewController {
     private func layout() {
+        navigationItem.rightBarButtonItem = shareButton
         view.addSubview(mainStack)
         NSLayoutConstraint.activate([
             mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -164,7 +191,7 @@ extension EventDetailViewController {
         NSLayoutConstraint.activate([
             text.heightAnchor.constraint(equalToConstant: 300),
             button.heightAnchor.constraint(equalToConstant: 44),
-            shereButton.heightAnchor.constraint(equalToConstant: 44)
+            showMapButton.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
 }
