@@ -50,8 +50,8 @@ class EventDetailViewModel: EventDetailViewModelContract {
         getEventService.getEvent(by: eventId) { (result: Response<Event>) in
             self.loadingIsHidden.onNext(true)
             switch result {
-            case .success(let events):
-                self.event.onNext(events)
+            case .success(let event):
+                self.event.onNext(event)
             case .failure(let error):
                 self.error.onNext(error)
             }

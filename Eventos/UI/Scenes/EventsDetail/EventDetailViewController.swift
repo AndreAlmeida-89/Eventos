@@ -78,36 +78,6 @@ class EventDetailViewController: UIViewController {
         return label
     }()
 
-    private lazy var dateLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .caption1)
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = .zero
-        label.textAlignment = .right
-        return label
-    }()
-
-    private lazy var priceAmmountLabel: UILabel = {
-        let label = UILabel(frame: .zero)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.adjustsFontForContentSizeCategory = true
-        label.textAlignment = .right
-        return label
-    }()
-
-    private lazy var infoStack: UIStackView = {
-        let stack = UIStackView(frame: .zero)
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.addArrangedSubview(titleLabel)
-        stack.addArrangedSubview(dateLabel)
-        stack.addArrangedSubview(priceAmmountLabel)
-        stack.spacing = UIStackView.spacingUseSystem
-        return stack
-    }()
-
     private lazy var shareButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .action,
                                      target: self,
@@ -126,7 +96,7 @@ class EventDetailViewController: UIViewController {
                                                                  bottom: stackMargins,
                                                                  trailing: stackMargins)
         stack.addArrangedSubview(imageView)
-        stack.addArrangedSubview(infoStack)
+        stack.addArrangedSubview(titleLabel)
         stack.addArrangedSubview(text)
         stack.addArrangedSubview(button)
         stack.addArrangedSubview(showMapButton)
@@ -173,21 +143,28 @@ extension EventDetailViewController {
     private func bindLabels() {
         viewModel?.event.bind { [weak self] event in
             guard let self = self else { return }
-            let processor = RoundCornerImageProcessor(cornerRadius: 50)
-            self.imageView.kf.indicatorType = .activity
-            if let url = URL(string: event.image) {
-                self.imageView.kf.setImage(with: url,
-                                           options: [.processor(processor)])
-            } else {
-                self.imageView.image = UIImage(systemName: "photo")
-            }
-            self.text.text = event.description
+            self.configureImage(url: URL(string: event.image))
             self.titleLabel.text = event.title
-            self.priceAmmountLabel.text = event.price.currencyFormat
-            self.dateLabel.text = event.convertedDate.formatted(date: .numeric, time: .shortened)
+            let price = "Preço: " + event.price.currencyFormat + "\n"
+            let date = "Data: " + event.convertedDate.formatted(date: .numeric, time: .shortened) + "\n\n"
+            self.text.text = price + date + event.description
             self.mapViewController.setup(with: event)
         }
         .disposed(by: disposeBag)
+    }
+
+    private func configureImage(url: URL?) {
+        let processor = RoundCornerImageProcessor(cornerRadius: 50)
+        self.imageView.kf.indicatorType = .activity
+        KF.url(url)
+            .setProcessor(processor)
+            .loadDiskFileSynchronously()
+            .cacheMemoryOnly()
+            .onFailure {[weak self] _ in
+                guard let self = self else { return }
+                self.imageView.removeFromSuperview()
+            }
+            .set(to: imageView)
     }
 
     private func bindErrorAlert() {
@@ -240,15 +217,15 @@ extension EventDetailViewController {
         navigationItem.rightBarButtonItem = shareButton
         view.addSubview(mainStack)
         NSLayoutConstraint.activate([
-            mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            mainStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            mainStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            mainStack.topAnchor.constraint(equalTo: view.topAnchor),
+            mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mainStack.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
 
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 150),
-            imageView.heightAnchor.constraint(equalToConstant: 150),
+            imageView.widthAnchor.constraint(equalToConstant: 200),
+            imageView.heightAnchor.constraint(equalToConstant: 200),
             button.heightAnchor.constraint(equalToConstant: 44),
             showMapButton.heightAnchor.constraint(equalToConstant: 44)
         ])
