@@ -6,8 +6,9 @@
 //
 
 import Foundation
+@testable import Eventos
 
-class JsonLoader {
+struct JsonLoader {
     static var mockedEventsList: [Event] {
         loadJson(filename: "MockedEvents")!
     }

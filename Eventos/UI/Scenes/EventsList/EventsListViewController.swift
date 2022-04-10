@@ -65,9 +65,11 @@ extension EventsListViewController {
 
         tableView.rx.modelSelected(Event.self)
             .bind { [weak self] event in
-                guard let self = self else { return }
-                print(event)
-                let detailViewController = DependecyProvider.eventDetailViewController(id: Int(event.id)!)
+                guard
+                    let id = Int(event.id),
+                    let self = self
+                else { return }
+                let detailViewController = DependecyProvider.eventDetailViewController(id: id)
                 self.navigationController?.pushViewController(detailViewController, animated: true)
             }
             .disposed(by: disposeBag)

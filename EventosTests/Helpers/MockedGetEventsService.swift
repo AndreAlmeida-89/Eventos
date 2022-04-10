@@ -6,6 +6,7 @@
 //
 
 import Foundation
+@testable import Eventos
 
 class MockedGetEventsService: GetEventsServicing {
     func getEvents(handler: @escaping Completion<[Eventos.Event]>) {
