@@ -131,11 +131,18 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		2E30BCE32803233800BCC4AE /* EventMap */ = {
+			isa = PBXGroup;
+			children = (
+				2EDDBBB62800DF390020D9CA /* MapViewController.swift */,
+			);
+			path = EventMap;
+			sourceTree = "<group>";
+		};
 		2E31786527FE1DB500526471 /* EventsDetail */ = {
 			isa = PBXGroup;
 			children = (
 				2E23D84727FE4FE300CBC86E /* EventDetailViewController.swift */,
-				2EDDBBB62800DF390020D9CA /* MapViewController.swift */,
 				2E23D85127FE59FE00CBC86E /* EventDetailViewModel.swift */,
 			);
 			path = EventsDetail;
@@ -251,8 +258,9 @@
 		2EF8CD9F27FCEE5900960663 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				2E31786527FE1DB500526471 /* EventsDetail */,
 				2EF241D627FDA88F0081BDD1 /* EventsList */,
+				2E30BCE32803233800BCC4AE /* EventMap */,
+				2E31786527FE1DB500526471 /* EventsDetail */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";

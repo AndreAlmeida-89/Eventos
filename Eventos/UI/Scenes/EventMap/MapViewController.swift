@@ -17,10 +17,15 @@ class MapViewController: UIViewController {
         return mapView
     }()
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.largeTitleDisplayMode = .never
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
-        title = "Localização do Evento"
+        title = "Mapa"
     }
 
     func setup(with event: Event) {

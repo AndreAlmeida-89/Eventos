@@ -25,6 +25,7 @@ class EventsListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        style()
         layout()
         bind()
     }
@@ -32,6 +33,7 @@ class EventsListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel?.getEvents()
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 

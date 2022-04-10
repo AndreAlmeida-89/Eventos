@@ -139,6 +139,8 @@ class EventDetailViewController: UIViewController {
     }()
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.largeTitleDisplayMode = .never
         viewModel?.getEvent()
     }
 
@@ -228,9 +230,8 @@ extension EventDetailViewController {
 
 extension EventDetailViewController {
     private func style() {
-        self.title = "Detalhes"
+        title = "Detalhes"
         view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.prefersLargeTitles = false
     }
 }
 
@@ -285,7 +286,7 @@ extension EventDetailViewController {
 
         checkinAlert.addAction(UIAlertAction(title: "Cencelar", style: .cancel))
 
-        let confirmAction = UIAlertAction(title: "Confirmar", style: .default, handler: {[weak self] _ in
+        let confirmAction = UIAlertAction(title: "Confirmar", style: .default, handler: { [weak self] _ in
             guard
                 let name = checkinAlert.textFields?[0].text,
                 let email = checkinAlert.textFields?[1].text,
@@ -295,7 +296,6 @@ extension EventDetailViewController {
         })
 
         checkinAlert.addAction(confirmAction)
-
         present(checkinAlert, animated: true)
     }
 
