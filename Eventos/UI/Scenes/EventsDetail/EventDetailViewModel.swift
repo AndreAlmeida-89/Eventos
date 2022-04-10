@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-protocol EventDetailViewModelContract {
+protocol EventDetailViewModelContract: AnyObject {
     func getEvent()
     func postCheckin(name: String, email: String)
     var event: PublishSubject<Event> { get set }
@@ -39,9 +39,9 @@ class EventDetailViewModel: EventDetailViewModelContract {
     var onCompleteCheckin: PublishSubject<Bool> = PublishSubject()
     private let eventId: Int
 
-    init(eventService: GetEventServicing, postCheckInServicing: PostCheckInServicing, eventId: Int) {
+    init(eventService: EventsServicing, eventId: Int) {
         self.getEventService = eventService
-        self.postCheckInServicing = postCheckInServicing
+        self.postCheckInServicing = eventService
         self.eventId = eventId
     }
 

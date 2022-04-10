@@ -12,7 +12,7 @@ import Kingfisher
 
 class EventDetailViewController: UIViewController {
 
-    var viewModel: EventDetailViewModelContract
+    var viewModel: EventDetailViewModelContract?
     private let disposeBag = DisposeBag()
     private let stackMargins: CGFloat = 20
     private let taxtViewkMargins: CGFloat = 16
@@ -48,7 +48,7 @@ class EventDetailViewController: UIViewController {
         button.layer.shadowColor = UIColor.systemPink.cgColor
         button.addTarget(self, action: #selector(chekIn), for: .touchUpInside)
         button.setImage(UIImage(systemName: "checkmark")?.withTintColor(.systemMint,
-                                                                  renderingMode: .alwaysOriginal),
+                                                                        renderingMode: .alwaysOriginal),
                         for: [])
         button.setTitleColor(.white, for: [])
         return button
@@ -64,6 +64,7 @@ class EventDetailViewController: UIViewController {
                                                                   renderingMode: .alwaysOriginal),
                         for: [])
         button.setTitleColor(.black, for: [])
+        button.addTarget(self, action: #selector(showMap), for: .touchUpInside)
         return button
     }()
 
@@ -73,6 +74,7 @@ class EventDetailViewController: UIViewController {
         label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = .zero
+        label.textAlignment = .center
         return label
     }()
 
@@ -123,27 +125,21 @@ class EventDetailViewController: UIViewController {
                                                                  leading: stackMargins,
                                                                  bottom: stackMargins,
                                                                  trailing: stackMargins)
-        stack.addArrangedSubview(infoStack)
         stack.addArrangedSubview(imageView)
+        stack.addArrangedSubview(infoStack)
         stack.addArrangedSubview(text)
         stack.addArrangedSubview(button)
         stack.addArrangedSubview(showMapButton)
         return stack
     }()
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        let service = MockedGetEventService()
-        let postService = EventsService(service: RemoteService())
-        viewModel = EventDetailViewModel(eventService: service, postCheckInServicing: postService, eventId: 1)
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private lazy var mapViewController: MapViewController = {
+        let mapViewController =  MapViewController()
+        return mapViewController
+    }()
 
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.getEvent()
+        viewModel?.getEvent()
     }
 
     override func viewDidLoad() {
@@ -157,12 +153,24 @@ class EventDetailViewController: UIViewController {
 
 extension EventDetailViewController {
     private func bind() {
+        bindLoading()
+        bindLabels()
+        bindErrorAlert()
+        bindCheckinCompletionAlert()
+    }
 
-        viewModel.loadingIsHidden
-            .bind { $0 ? self.removeSpinner() : self.showLoading()}
+    private func bindLoading() {
+        viewModel?.loadingIsHidden
+            .bind { [weak self] in
+                guard let self = self else { return }
+                $0 ? self.removeSpinner() : self.showLoading()
+            }
             .disposed(by: disposeBag)
+    }
 
-        viewModel.event.bind { event in
+    private func bindLabels() {
+        viewModel?.event.bind { [weak self] event in
+            guard let self = self else { return }
             let processor = RoundCornerImageProcessor(cornerRadius: 50)
             self.imageView.kf.indicatorType = .activity
             if let url = URL(string: event.image) {
@@ -175,10 +183,14 @@ extension EventDetailViewController {
             self.titleLabel.text = event.title
             self.priceAmmountLabel.text = event.price.currencyFormat
             self.dateLabel.text = event.convertedDate.formatted(date: .numeric, time: .shortened)
+            self.mapViewController.setup(with: event)
         }
         .disposed(by: disposeBag)
+    }
 
-        viewModel.error.bind { error in
+    private func bindErrorAlert() {
+        viewModel?.error.bind { [weak self] error in
+            guard let self = self else { return }
             let alert = UIAlertController(title: "Ops!",
                                           message: error.errorDescription,
                                           preferredStyle: .actionSheet)
@@ -187,7 +199,7 @@ extension EventDetailViewController {
                     self.navigationController?.popViewController(animated: true)
                 }))
                 alert.addAction(.init(title: "Tentar novamente", style: .default, handler: { _ in
-                    self.viewModel.getEvent()
+                    self.viewModel?.getEvent()
                 }))
             }
 
@@ -200,15 +212,17 @@ extension EventDetailViewController {
             self.present(alert, animated: true)
         }
         .disposed(by: disposeBag)
+    }
 
-        viewModel.onCompleteCheckin.bind { _ in
+    private func bindCheckinCompletionAlert() {
+        viewModel?.onCompleteCheckin.bind { [weak self] _ in
+            guard let self = self else { return }
             let alert = UIAlertController(title: "Parabéns!!",
                                           message: "Sua inscrição foi realizada com sucesso!",
                                           preferredStyle: .alert)
             alert.addAction(.init(title: "Ok", style: .default))
             self.present(alert, animated: true)
         }.disposed(by: disposeBag)
-
     }
 }
 
@@ -232,8 +246,8 @@ extension EventDetailViewController {
         ])
 
         NSLayoutConstraint.activate([
-            imageView.widthAnchor.constraint(equalToConstant: 200),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
+            imageView.widthAnchor.constraint(equalToConstant: 150),
+            imageView.heightAnchor.constraint(equalToConstant: 150),
             button.heightAnchor.constraint(equalToConstant: 44),
             showMapButton.heightAnchor.constraint(equalToConstant: 44)
         ])
@@ -271,16 +285,22 @@ extension EventDetailViewController {
 
         checkinAlert.addAction(UIAlertAction(title: "Cencelar", style: .cancel))
 
-        let confirmAction = UIAlertAction(title: "Confirmar", style: .default, handler: { _ in
+        let confirmAction = UIAlertAction(title: "Confirmar", style: .default, handler: {[weak self] _ in
             guard
                 let name = checkinAlert.textFields?[0].text,
-                let email = checkinAlert.textFields?[1].text
+                let email = checkinAlert.textFields?[1].text,
+                let self = self
             else { return }
-            self.viewModel.postCheckin(name: name, email: email)
+            self.viewModel?.postCheckin(name: name, email: email)
         })
 
         checkinAlert.addAction(confirmAction)
 
         present(checkinAlert, animated: true)
+    }
+
+    @objc
+    private func showMap() {
+        navigationController?.pushViewController(mapViewController, animated: true)
     }
 }

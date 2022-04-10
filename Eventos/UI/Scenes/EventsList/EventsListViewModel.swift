@@ -8,7 +8,7 @@
 import Foundation
 import RxSwift
 
-protocol EventsListViewModelContract {
+protocol EventsListViewModelContract: AnyObject {
     func getEvents()
     var events: PublishSubject<[Event]> { get set }
     var loadingIsHidden: PublishSubject<Bool> { get set }

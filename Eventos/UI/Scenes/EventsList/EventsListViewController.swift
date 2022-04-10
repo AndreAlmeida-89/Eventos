@@ -11,20 +11,9 @@ import RxSwift
 
 class EventsListViewController: UIViewController {
 
-    var viewModel: EventsListViewModelContract
+    var viewModel: EventsListViewModelContract?
     private let disposeBag = DisposeBag()
     private let cellIdentifier = "cell"
-
-    override init(nibName nibNameOrNil: String? = nil, bundle nibBundleOrNil: Bundle? = nil) {
-//        let remoteService = RemoteService()
-//        let service = EventsService(service: remoteService)
-        viewModel = EventsListViewModel(eventsService: MockedGetEventsService())
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
@@ -41,7 +30,8 @@ class EventsListViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        viewModel.getEvents()
+        super.viewWillAppear(animated)
+        viewModel?.getEvents()
     }
 }
 
@@ -65,20 +55,26 @@ extension EventsListViewController {
 
 extension EventsListViewController {
     private func bind() {
-        viewModel.events
+        viewModel?.events
             .bind(to: self.tableView.rx.items(cellIdentifier: EventCell.reuseId,
                                               cellType: EventCell.self)) { _, event, cell in
                 cell.configure(with: event)
             }.disposed(by: disposeBag)
 
-        tableView.rx.modelSelected(Event.self).subscribe { _ in
-            let detailViewController = EventDetailViewController()
-            self.navigationController?.pushViewController(detailViewController, animated: true)
-        }.disposed(by: disposeBag)
+        tableView.rx.modelSelected(Event.self)
+            .bind { [weak self] event in
+                guard let self = self else { return }
+                print(event)
+                let detailViewController = DependecyProvider.eventDetailViewController(id: Int(event.id)!)
+                self.navigationController?.pushViewController(detailViewController, animated: true)
+            }
+            .disposed(by: disposeBag)
 
-        viewModel.loadingIsHidden
-            .bind { $0 ? self.removeSpinner() : self.showLoading()}
+        viewModel?.loadingIsHidden
+            .bind { [weak self] in
+                guard let self = self else { return }
+                $0 ? self.removeSpinner() : self.showLoading()
+            }
             .disposed(by: disposeBag)
     }
-
 }
