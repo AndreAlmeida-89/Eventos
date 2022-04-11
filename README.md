@@ -15,7 +15,7 @@ App iOS que exibe uma lista de eventos e seus detalhes.
   - Human Interface Guidelines da Apple.
   - Tratativa de erros com exibição de mensagens amigáveis ao usuário.
 
-## Feeatures:
+## Features:
   - Listagem de eventos cadastrados na API: título, número de inscritos, valor, data.
   - Exibição de detalhes do evento: título, imagem, valor, data, texto descritivo.
   - Check-In em evento: envio de check-in API; validação dos campos de nome e e-mail; mensagem de confirmação.
