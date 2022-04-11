@@ -17,11 +17,23 @@ struct JsonLoader {
         loadJson(filename: "MockedEvent")!
     }
 
-    static func loadJson<T: Decodable>(filename: String) -> T? {
+    static var mockedData: Data {
+        loadJson(filename: "MockedEvents")!
+    }
+
+    static private func loadJson<T: Decodable>(filename: String) -> T? {
         if let url = Bundle.main.url(forResource: filename, withExtension: "json") {
             let data = try? Data.init(contentsOf: url)
             let decodedData = try? JSONDecoder().decode(T.self, from: data ?? Data())
             return decodedData
+        }
+        return nil
+    }
+
+    static private func loadJson(filename: String) -> Data? {
+        if let url = Bundle.main.url(forResource: filename, withExtension: "json") {
+            let data = try? Data.init(contentsOf: url)
+            return data
         }
         return nil
     }
